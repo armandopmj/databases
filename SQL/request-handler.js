@@ -29,14 +29,11 @@ exports.postMessage = function(req, res) {
   parseData(req, function(_, msg) {
       message = msg;
       findUser(msg.username, function (err, results) {
-        console.log("results:",results);
         // no results/0 results
         if (!results || !results.length) {
           // create the user, then post the message
-          console.log("create the user, then post the message");
           saveUser(message.username, resultsCallback);
         } else {
-          console.log("user exists, post the message to this user");
           // user exists, post the message to this user
           resultsCallback(results);
         }

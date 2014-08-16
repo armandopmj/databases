@@ -45,16 +45,14 @@ exports.findUser = function(username, cb){
   dbConnection.query("SELECT id FROM users WHERE user_name = ? LIMIT 1;",
     [username],
     function(err, rows, fields) {
-      if (err) throw err;
-      console.log("Find",username+"?",rows);
       cb(err, rows);
   });
 };
 
 exports.saveUser = function(username, cb){
   dbConnection.query("INSERT INTO users (user_name) VALUES (?)",[username], function(err, rows, fields) {
-    if (err) throw err;
-    cb(err, rows);
+    rows[0] = {id: rows.insertId};
+    cb(rows);
   });
 };
 

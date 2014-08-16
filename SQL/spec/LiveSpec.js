@@ -18,7 +18,7 @@ describe("Persistent Node Chat Server", function() {
     });
     dbConnection.connect();
 
-    var tablename = ""; // TODO: fill this out
+    var tablename = "messages"; // TODO: fill this out
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
@@ -41,7 +41,16 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
-              var queryString = "";
+              var queryString = "SELECT "+
+    "users.user_name as username, "+
+    "messages.message_text as text, "+
+    "messages.id as objectId, "+
+    "messages.created_at as createdAt, "+
+    "messages.updated_at as updatedAt, "+
+    "rooms.room_name as roomname "+
+    "FROM messages "+
+    "JOIN users ON users.id = messages.user_id "+
+    "JOIN rooms ON rooms.id = messages.room_id; ";
               var queryArgs = [];
               /* TODO: Change the above queryString & queryArgs to match your schema design
                * The exact query string and query args to use
