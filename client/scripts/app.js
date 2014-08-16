@@ -59,7 +59,6 @@ $(function() {
         contentType: 'application/json',
         // data: { order: '-createdAt'},
         success: function(data) {
-          debugger;
           console.log('chatterbox: Messages fetched',data);
 
           // Don't bother if we have nothing to work with
